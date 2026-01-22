@@ -1,23 +1,19 @@
 import type { Season, FoodSource } from "./World";
 import type { ValueOf } from "../types";
 
-// type Bee = Queen | Worker | Drone;
-// type Sex = 'male' | 'female';
-// type WorkerRole = 'cleaner' | 'larvaeNurse' | 'queenNurse' | 'builder'| 'handler' | 'fan' | 'guardian' | 'forager';
-
-const Bee = {
+export const Bee = {
     Queen: 'queen',
     Worker: 'worker',
     Drone: 'drone'
 } as const;
 
-const Sex = {
+export const Sex = {
     Male: 'male',
     Female: 'female'
 } as const;
 
 //Rôle basé sur l'age et les besoins de la ruche
-const WorkerRole = {
+export const WorkerRole = {
     Cleaner: 'cleaner',
     LarvaeNurse: 'larvaeNurse',
     QueenNurse: 'queenNurse',
@@ -28,7 +24,7 @@ const WorkerRole = {
     Forage: 'forager'
 } as const;
 
-const LarvaStage = {
+export const LarvaStage = {
     Egg: 'egg',
     Larva: 'larva',
     Nymph: 'nymph'
@@ -40,7 +36,7 @@ type BaseBee = {
     stress: number
 }
 
-type Queen = BaseBee & {
+export type Queen = BaseBee & {
     sex: typeof Sex.Female,
     maxLifeSpan: 1820, // (5 ans, 260 weeks)
     fertility: number,
@@ -51,7 +47,7 @@ type Queen = BaseBee & {
 
 }
 
-type Worker = BaseBee & {
+export type Worker = BaseBee & {
     sex: typeof Sex.Female,
     role: ValueOf<typeof WorkerRole>,
     maxLifeSpan: number,
@@ -66,14 +62,14 @@ Jeune abeille    →    VG haute, JH basse    →    Nourrice
 ↓ avec l'âge
 Abeille mature   →    VG basse, JH haute    →    Butineuse
 */
-type Drone = BaseBee & {
+export type Drone = BaseBee & {
     sex: typeof Sex.Male,
     maxLifeSpan: 90,
     hasFlownToday: boolean,
     maturity: number
 }
 
-type Larvae = BaseBee & {
+export type Larvae = BaseBee & {
     stage: ValueOf<typeof LarvaStage>,
     daysInStage: number,
     isFertilized: boolean,
@@ -82,7 +78,7 @@ type Larvae = BaseBee & {
     temperature: number
 }
 
-type WaggleDance = {
+export type WaggleDance = {
     direction: number, //angle
     distance: number, //metre
     duration: number, //seconde
