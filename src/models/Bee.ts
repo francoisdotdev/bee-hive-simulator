@@ -1,6 +1,10 @@
 import type { Season, FoodSource } from "./World";
 import type { ValueOf } from "../types";
 
+
+
+//* --- Const assertions ---
+
 export const Bee = {
     Queen: 'queen',
     Worker: 'worker',
@@ -12,7 +16,7 @@ export const Sex = {
     Female: 'female'
 } as const;
 
-//Rôle basé sur l'age et les besoins de la ruche
+//TODO Rôle basé sur l'age et les besoins de la ruche
 export const WorkerRole = {
     Cleaner: 'cleaner',
     LarvaeNurse: 'larvaeNurse',
@@ -30,6 +34,10 @@ export const LarvaStage = {
     Nymph: 'nymph'
 } as const;
 
+
+
+//* --- Type aliases ---
+
 type BaseBee = {
     age: number,
     health: number, // max = 100 (parfaite santé) min=0 (en train de mourir)
@@ -44,20 +52,19 @@ export type Queen = BaseBee & {
     pheromoneStrength: number,
     spermCount: number,
     laidEggsToday: number
-
 }
 
 export type Worker = BaseBee & {
     sex: typeof Sex.Female,
     role: ValueOf<typeof WorkerRole>,
     maxLifeSpan: number,
-    juvenileHormone: number, //si élevé -> vieillit + vite, devient butineuse, sort de la ruche, vieillit - longtemps
-    vitellogenin: number, //si élevé -> jeune physiologiquement, tache interieur, vit + longtemps, resiste mieux au stress
+    juvenileHormone: number, //TODO si élevé -> vieillit + vite, devient butineuse, sort de la ruche, vieillit - longtemps
+    vitellogenin: number, //TODO si élevé -> jeune physiologiquement, tache interieur, vit + longtemps, resiste mieux au stress
     fatBodies: number,
     foragingExperience: number,
     knowFoodSources: FoodSource[]
 }
-/* 
+/*  
 Jeune abeille    →    VG haute, JH basse    →    Nourrice
 ↓ avec l'âge
 Abeille mature   →    VG basse, JH haute    →    Butineuse
@@ -86,6 +93,10 @@ export type WaggleDance = {
     foodSource: FoodSource,
     followers: Worker[]
 }
+
+
+
+//* --- Factory functions ---
 
 export function createQueen (): Queen {
     return { 
