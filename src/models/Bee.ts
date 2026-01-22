@@ -32,7 +32,7 @@ export const LarvaStage = {
 
 type BaseBee = {
     age: number,
-    health: number,
+    health: number, // max = 100 (parfaite santé) min=0 (en train de mourir)
     stress: number
 }
 
@@ -69,7 +69,7 @@ export type Drone = BaseBee & {
     maturity: number
 }
 
-export type Larvae = BaseBee & {
+export type Larva = BaseBee & {
     stage: ValueOf<typeof LarvaStage>,
     daysInStage: number,
     isFertilized: boolean,
@@ -85,4 +85,61 @@ export type WaggleDance = {
     quality: number, // 0-1
     foodSource: FoodSource,
     followers: Worker[]
+}
+
+export function createQueen (): Queen {
+    return { 
+        age: 0,
+        health: 100,
+        stress: 0,
+        sex: Sex.Female,
+        maxLifeSpan: 1820,
+        fertility: 0,
+        isVirgin: true,
+        pheromoneStrength: 0,
+        spermCount: 0,
+        laidEggsToday: 0
+    }
+}
+
+export function createWorker (currentSeason : Season): Worker {
+    return {
+        age: 0,
+        health: 100,
+        stress: 0,
+        sex: Sex.Female,
+        maxLifeSpan: currentSeason === 'spring' || currentSeason === 'summer' ? 50 : 180 ,
+        role: WorkerRole.Cleaner,
+        juvenileHormone: 0,
+        vitellogenin: 100,
+        fatBodies: 0,
+        foragingExperience: 0,
+        knowFoodSources: []
+    }
+}
+
+export function createDrone (): Drone {
+    return {
+        age: 0,
+        health: 100,
+        stress: 0,
+        sex: Sex.Male,
+        maxLifeSpan: 90,
+        hasFlownToday: false,
+        maturity: 0
+    }
+}
+
+export function createLarva (isFertilized: boolean, fedRoyalJelly: boolean): Larva {
+    return {
+        age: 0,
+        health: 100,
+        stress: 0,
+        stage: LarvaStage.Egg,
+        daysInStage: 0,
+        isFertilized,
+        fedRoyalJelly,
+        caste: !isFertilized ? Bee.Drone : (fedRoyalJelly ? Bee.Queen : Bee.Worker),
+        temperature: 35
+    }
 }
